@@ -6,10 +6,11 @@ const ExpressError = require('../expressError')
 
 router.get('/', async (req, res, next)=>{
     try{
-        console.log('quirks')
+  
         let results = await db.query('SELECT * FROM companies;')
-        
-        return res.json({results:[results.rows]})
+        console.log('meeeeeeeeeeeeeeeee')
+        console.log(results.rows, 'serverside')
+        return res.json({results:results.rows})
     }catch(e){
         next(e)
     }
@@ -68,7 +69,7 @@ router.put('/:code', async (req, res, next)=>{
 
 router.delete('/:code', async (req, res, next) => {
     try {
-      const results = db.query('DELETE FROM users WHERE id = $1', [req.params.code])
+      const results = db.query('DELETE FROM companies WHERE code = $1', [req.params.code])
       return res.send({ msg: "DELETED!" })
     } catch (e) {
       return next(e)
